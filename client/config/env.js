@@ -14,6 +14,13 @@ if (!NODE_ENV) {
   );
 }
 
+if (NODE_ENV === 'production') {
+  const envLoadResult = require('dotenv').config({ path: '.env.production' });
+  if (envLoadResult.error) {
+    throw envLoadResult.error;
+  }
+}
+
 // https://github.com/bkeepers/dotenv#what-other-env-files-can-i-use
 const dotenvFiles = [
   `${paths.dotenv}.${NODE_ENV}.local`,
@@ -85,6 +92,7 @@ function getClientEnvironment(publicUrl) {
         WDS_SOCKET_HOST: process.env.WDS_SOCKET_HOST,
         WDS_SOCKET_PATH: process.env.WDS_SOCKET_PATH,
         WDS_SOCKET_PORT: process.env.WDS_SOCKET_PORT,
+        API_URL: process.env.API_URL,
       }
     );
   // Stringify all values so we can feed into webpack DefinePlugin
