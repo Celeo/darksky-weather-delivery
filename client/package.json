@@ -59,6 +59,7 @@
     "sass-loader": "8.0.2",
     "semver": "6.3.0",
     "style-loader": "0.23.1",
+    "surge": "^0.21.3",
     "terser-webpack-plugin": "2.3.5",
     "ts-pnp": "1.1.6",
     "typescript": "~3.7.2",
@@ -73,7 +74,8 @@
     "build": "node scripts/build.js",
     "test": "node scripts/test.js",
     "lint": "eslint src/**/*.{ts,tsx}",
-    "lint:fix": "eslint --fix src/**/*.{ts,tsx}"
+    "lint:fix": "eslint --fix src/**/*.{ts,tsx}",
+    "deploy": "surge build darkskyweatherdelivery.surge.sh"
   },
   "eslintConfig": {
     "extends": "react-app",
