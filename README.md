@@ -22,21 +22,41 @@ cd ../darkskywdfunction
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+echo '{}' > local.settings.json
 cd ..
+```
+
+Then, populate `local.settings.json` with:
+
+```json
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "python",
+    "DARK_SKY_SECRET_KEY": "<key>",
+    "DARK_SKY_LOCATION": "<lat>,<long>"
+  },
+  "Host": {
+    "CORS": "*"
+  }
+}
 ```
 
 ## Deploying
 
+### Backend
+
+You'll need to set up a resource group in Azure, and then either use the Azure CLI or the VS Code plugin to deploy the function.
+
 ### Frontend
 
-You'll need to change add a [Surge](https://surge.sh) target website in `./client/CNAME`, and then
+1. Add a [Surge](https://surge.sh) target website in `./client/CNAME`.
+1. Create a file in `./client/.env.production.local` and populate with `REACT_APP_API_URL=<your Azure function endpoint>`
+1. Run:
 
 ```sh
 cd client
 yarn build
 yarn deploy
 ```
-
-### Backend
-
-You'll need to set up a resource group in Azure, and then either use the Azure CLI or the VS Code plugin to deploy the code.

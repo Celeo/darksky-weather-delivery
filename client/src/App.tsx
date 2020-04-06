@@ -41,7 +41,7 @@ const App = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(process.env.API_URL || 'http://localhost:7071/api/HttpTrigger')
+      const response = await axios.get(process.env.REACT_APP_API_URL || 'http://localhost:7071/api/HttpTrigger')
       setData(response.data)
       setError(null)
     } catch (error) {
