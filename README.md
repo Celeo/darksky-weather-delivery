@@ -29,7 +29,7 @@ cd ..
 
 ### Frontend
 
-You'll need to change the [Surge](https://surge.sh) target website in `./client/package.json`.
+You'll need to change add a [Surge](https://surge.sh) target website in `./client/CNAME`, and then
 
 ```sh
 cd client

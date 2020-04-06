@@ -17,10 +17,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "react-scripts build && node scripts/surge.js",
     "lint": "eslint src/**/*.{ts,tsx}",
     "lint:fix": "eslint --fix src/**/*.{ts,tsx}",
-    "deploy": "surge build darkskyweatherdelivery.surge.sh"
+    "deploy": "surge build"
   },
   "eslintConfig": {
     "extends": "react-app"
