@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {
   Container,
+  Grid,
   LinearProgress,
   Paper,
   Table,
@@ -65,7 +66,7 @@ const App = () => {
     return (
       <Container>
         { error && <p style={{ color: 'red' }}>Error: { error }</p> }
-        <LinearProgress />
+        { !error && <LinearProgress /> }
       </Container>
     )
   }
@@ -73,31 +74,72 @@ const App = () => {
   return (
     <Container>
       { error && <p style={{ color: 'red' }}>Error: { error }</p> }
-      <h2>Simple</h2>
-      <TableContainer component={StyledPaper}>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <StyledTableCell />
-              <StyledTableCell />
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            <TableRow>
-              <StyledTableCell><strong>Currently</strong></StyledTableCell>
-              <StyledTableCell>{ data.simple.current }</StyledTableCell>
-            </TableRow>
-            <TableRow>
-              <StyledTableCell><strong>Hourly</strong></StyledTableCell>
-              <StyledTableCell>{ data.simple.hourly }</StyledTableCell>
-            </TableRow>
-            <TableRow>
-              <StyledTableCell><strong>Daily</strong></StyledTableCell>
-              <StyledTableCell>{ data.simple.daily }</StyledTableCell>
-            </TableRow>
-          </TableBody>
-        </Table>
-      </TableContainer>
+      <div style={{ flexGrow: 1 }}>
+        <Grid container spacing={3}>
+          <Grid item xs>
+            <h2>Now</h2>
+            <TableContainer component={StyledPaper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell />
+                    <StyledTableCell />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <StyledTableCell><strong>Temperature</strong></StyledTableCell>
+                    <StyledTableCell>{ temp(data.current.temperature) }</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell><strong>Humidity</strong></StyledTableCell>
+                    <StyledTableCell>{ `${data.current.humidity}%` }</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell><strong>Cloud cover</strong></StyledTableCell>
+                    <StyledTableCell>{ `${data.current.cloudCover}%` }</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell><strong>Wind speed</strong></StyledTableCell>
+                    <StyledTableCell>{ data.current.windSpeed } mph</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell><strong>Precipitation %</strong></StyledTableCell>
+                    <StyledTableCell>{ `${data.current.precipProbability}%` }</StyledTableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+          <Grid item xs>
+            <h2>Summary</h2>
+            <TableContainer component={StyledPaper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <StyledTableCell />
+                    <StyledTableCell />
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  <TableRow>
+                    <StyledTableCell><strong>Currently</strong></StyledTableCell>
+                    <StyledTableCell>{ data.summary.current }</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell><strong>By hour</strong></StyledTableCell>
+                    <StyledTableCell>{ data.summary.hourly }</StyledTableCell>
+                  </TableRow>
+                  <TableRow>
+                    <StyledTableCell><strong>By day</strong></StyledTableCell>
+                    <StyledTableCell>{ data.summary.daily }</StyledTableCell>
+                  </TableRow>
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Grid>
+        </Grid>
+      </div>
       <h2>Hourly breakdown</h2>
       <TableContainer component={StyledPaper}>
         <Table>

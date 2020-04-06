@@ -21,17 +21,27 @@ def build_response_json(api_data: Dict[str, Any]) -> Dict[str, Any]:
     current_time = datetime.utcnow().replace(tzinfo=pytz.utc).astimezone(TZ_LA)
     current_day = current_time.strftime('%d')
     return_data: Dict[str, Any] = {
-        'simple': {
+        'summary': {
             'current': api_data['currently']['summary'],
             'hourly': api_data['hourly']['summary'],
             'daily': api_data['daily']['summary']
+        },
+        'current': {
+            'temperature': round_n(api_data['currently']['temperature']),
+            'precipProbability': round_n(api_data['currently']['precipProbability'] * 100),
+            'humidity': round_n(api_data['currently']['humidity'] * 100),
+            'windSpeed': round_n(api_data['currently']['windSpeed']),
+            'cloudCover': round_n(api_data['currently']['cloudCover'] * 100),
         }
     }
     hourly = []
+    break_next = False
     for hour in api_data['hourly']['data']:
+        if break_next:
+            break
         dt = datetime.fromtimestamp(hour['time'], pytz.utc).astimezone(TZ_LA)
         if dt.strftime('%d') != current_day:
-            break
+            break_next = True
         hourly.append({
             'time': dt.strftime('%I %p'),
             'summary': hour['summary'],
