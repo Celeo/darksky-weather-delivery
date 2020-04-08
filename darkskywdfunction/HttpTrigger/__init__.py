@@ -57,7 +57,7 @@ def build_response_json(api_data: Dict[str, Any]) -> Dict[str, Any]:
             'temperatureHigh': round_n(day['temperatureHigh']),
             'humidity': round_n(day['humidity'] * 100),
             'precipProbability': round_n(day['precipProbability'] * 100),
-            'precipType': day['precipType']
+            'precipType': day.get('precipType', 'nothing')
         })
     return_data['daily'] = daily
     return return_data

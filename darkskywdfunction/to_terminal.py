@@ -63,7 +63,7 @@ def main():
             round_n(day['temperatureHigh']),
             round_n(day['humidity'] * 100),
             round_n(day['precipProbability'] * 100),
-            day['precipType']
+            day.get('precipType', 'nothing')
         ))
 
 
